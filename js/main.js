@@ -387,13 +387,6 @@
 			this.inputField.addEventListener("keydown", this.listeners[this.inputField.id + "-keydown"]);
 		};
 
-		// Given the id (hash) of an item,
-		Main.prototype.addListenerToDiv = function (hash) {
-			document.getElementById(hash).addEventListener("click", function() { 
-					this.buy(hash);
-			}.bind(this));	
-		};
-
 		// The main function running the game
 		Main.prototype.run = function () {
 			// Attach event to input
@@ -411,7 +404,8 @@
 		Main.prototype.updateDisplay = function () {
 			this.clearOutputField();
 			this.displayPlayerInfo("XP 0 | Level 1");
-			this.displayContent("WELCOME TO ETERNAL SOUL II!");
+			this.displayContent("Welcome to Dragonsbane, what do you want to do? </br>" +
+				"A| Leave Town. B| Go to shop. C| Visit tavern. D| History of Dragonsbane.");
 		};
 
 		// Instantiates a player
