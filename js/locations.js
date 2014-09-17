@@ -14,7 +14,9 @@
 
 		Locations.isLocations =  function (context) {
 			return context instanceof Locations;
+
 		};
+
 
 		Locations.prototype.displayAvailableMoves = function () {
 			var str = "",
@@ -35,19 +37,21 @@
 				Main.prototype.displayContent("Welcome to Dragonsbane, " + player.getUserName());
 			}
 			this.displayAvailableMoves("Leave town.", "Go to shop.", "Visit Tavern", "History of Dragonsbane");
-			console.log("Currently in Dragonsbane");
 		};
 
 		Locations.prototype.dragonsbaneTavern = function () {
 			Main.prototype.displayContent("Welcome to the Greasy Spoon Tavern!");
 			this.displayAvailableMoves("Talk to bartender.", "Start bar fight.", "Leave tavern");
-			console.log("Currently in the Greasy Spoon");
 		};
 
 		Locations.prototype.dragonsbaneTavernBartender = function () {
 			Main.prototype.displayContent("Welcome to the Greasy Spoon, what do you want to talk about?");
 			this.displayAvailableMoves("Enquire about lodging.", "Buy drink.", "What's new?", "Step back from bar.");
-			console.log("Currently in the Greasy Spoon, talking the bartender");
+		};
+
+		Locations.prototype.dragonsbaneTavernBartender = function () {
+			Main.prototype.displayContent("Welcome to the Greasy Spoon, what do you want to talk about?");
+			this.displayAvailableMoves("Enquire about lodging.", "Buy drink.", "What's new?", "Step back from bar.");
 		};
 
 		// Export to the global window

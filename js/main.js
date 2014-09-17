@@ -113,64 +113,74 @@
 			if (this.checkForABCD(input) && this.player.getUserName() !== "Your Name") {
 				var l = this.player.getLocation(),
 					dc = this.displayContent,
-					p = this.player;
+					p = this.player,
+					set = 0;
 				switch (l) {
 					case "dragonsbane": {
-						this.updateDisplay();
-						this.locations.dragonsbane();
-						switch (input) {
-							case "a":
-								p.setLocation("dragonsbane road");
-								break;
-							case "b":
-								p.setLocation("dragonsbane shop");
-								break;
-							case "c":
-								p.setLocation("dragonsbane tavern");
-								break;
-							case "d":
-								p.setLocation("dragonsbane history");
-								break;
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbane();
+							switch (input.toLowerCase()) {
+								case "a":
+									p.setLocation("dragonsbane road");
+									break;
+								case "b":
+									p.setLocation("dragonsbane shop");
+									break;
+								case "c":
+									p.setLocation("dragonsbane tavern");
+									break;
+								case "d":
+									p.setLocation("dragonsbane history");
+									break;
+							}
 						}
 						break; 
+					}	
+					case "dragonsbane tavern bartender": {
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneTavernBartender();
+							switch (input.toLowerCase()) {
+								case "a":
+									p.setLocation("dragonsbane tavern bartender");
+									break;
+								case "b":
+									p.setLocation("dragonsbane tavern bar fight");
+									break;
+								case "c":
+									p.setLocation("dragonsbane tavern leave");
+									break;
+								case "d":
+									p.setLocation("dragonsbane tavern");
+									break;
+							}
+						}
+						break;
 					} case "dragonsbane tavern": {
-						this.updateDisplay();
-						this.locations.dragonsbaneTavern();
-						switch (input) {
-							case "a":
-								console.log("You chose to talk to the bartender!");
-								p.setLocation("dragonsbane tavern bartender");
-								break;
-							case "b":
-								p.setLocation("dragonsbane tavern bar fight");
-								break;
-							case "c":
-								p.setLocation("dragonsbane");
-								break;
-							case "d":
-								this.displayAdvisorResponse();
-								break;
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneTavern();
+							switch (input.toLowerCase()) {
+								case "a":
+									console.log("You chose to talk to the bartender!");
+									p.setLocation("dragonsbane tavern bartender");
+									break;
+								case "b":
+									console.log("You chose to start a bar fight!");
+									p.setLocation("dragonsbane tavern bar fight");
+									break;
+								case "c":
+									console.log("You chose to leave the tavern");
+									p.setLocation("dragonsbane");
+									break;
+								case "d":
+									this.displayAdvisorResponse();
+									break;
+							}
 						}
 						break;
-					} case "dragonsbane tavern bartender": {
-						this.updateDisplay();
-						this.locations.dragonsbaneTavernBartender();
-						switch (input) {
-							case "a":
-								p.setLocation("dragonsbane tavern bartender");
-								break;
-							case "b":
-								p.setLocation("dragonsbane tavern bar fight");
-								break;
-							case "c":
-								p.setLocation("dragonsbane tavern leave");
-								break;
-							case "d":
-								p.setLocation("dragonsbane tavern");
-								break;
-						}
-						break;
-					}
+					} 
 				}
 
 			} else if (this.player.getUserName() === "Your Name") { 
@@ -179,7 +189,7 @@
 				window.setTimeout(function() {
 					this.updateDisplay();
 					this.locations.dragonsbane(this.player);
-				}.bind(this), 3e3);
+				}.bind(this), 2e3);
 				
 			} else {
 
@@ -486,6 +496,7 @@
 		// Updates the user on what's going on
 		Main.prototype.updateDisplay = function () {
 			this.clearOutputField();
+			this.displayContent("USER'S LOCATION: " + this.player.getLocation());
 			this.displayPlayerInfo("XP 0 | Level 1");
 		};
 
