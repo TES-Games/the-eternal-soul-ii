@@ -15,6 +15,7 @@
 	  this.mines = User.defaultMines;
 	  this.username = User.defaultName;
 	  this.xp = User.initialXP;
+	  this.loc = User.inititalLocation;
 
 	  // Rates
 	  this.foodRate = User.defaultFoodRate;
@@ -41,12 +42,13 @@
 	User.defaultFoodBonus = 0;
 	User.defaultFoodRate = 15;
 	User.defaultGoldBonus = 0;
+	User.inititalLocation = "dragonsbane";
 	User.defaultGoldRate = 3;
 	User.defaultMetalRate = 0;
 	User.defaultMilitaryPower = 0;
 	User.defaultMines = 1;
 	User.defaultMiningBonus = 0;
-	User.defaultName = "Gandian";
+	User.defaultName = "Your Name";
 	User.defaultResearchBonus = 0;
 	User.defaultXPRate = 8;
 	User.initialFood = 25;
@@ -126,6 +128,14 @@
 	  return this;
 	};
 
+	User.prototype.setUserName = function (name) {
+		this.username = name;
+	};
+
+	User.prototype.getUserName = function () {
+		return this.username;
+	};
+
 	User.prototype.getInventory = function () {
 	  if (!this.inventory) {
 		this.inventory = new Inventory();
@@ -134,39 +144,43 @@
 	  return this.inventory;
 	};
 
-	/**
-	 * Gets the level of the user.
-	 */
+	// Returns the user's location
+	User.prototype.getLocation = function () {
+		return this.loc;
+	};
+
+	// Sets the user's location
+	User.prototype.setLocation = function (newLocation) {
+		this.loc = newLocation	
+	};
+
+	
+	//Gets the level of the user.
 	User.prototype.getLevel = function () {
 	  this.updateLevel();
 
 	  return this.level;
 	};
 
-	/**
-	 * Gets the XP of the user.
-	 */
+	// Gets the XP of the user.
 	User.prototype.getXP = function () {
 	  return this.xp;
 	};
 
 
-	/**
-	 * Gets the gender of the user.
-	 */
+	// Gets the gender of the user.
 	User.prototype.getGender = function () {
 	  return this.gender;
 	};
 
-	/**
-	 * Increases the XP of the user.
-	 */
+	// Increases the XP of the user.
 	User.prototype.incrementXP = function (increment) {
 		this.xp += increment;
 
 		return this.xp;
 	};
 
+	// Increases the user's XP when they buy an item
 	User.prototype.incrementXPOnPurchase = function (item) {
 		var c = item.cost,
 			amount = (((c.food + c.metal + c.gold) * this.level) * (Math.random() * 15) | 0);
@@ -174,23 +188,17 @@
 		console.log("Increased XP by", amount);
 	};
 
-	/**
-	 * Returns the current gold rate.
-	 */
+	// Returns the current gold rate.
 	User.prototype.getGoldRate = function () {
 		return this.goldRate;
 	};
 
-	/**
-	 * Returns the current metal rate.
-	 */
+	// Returns the current metal rate.
 	User.prototype.getMetalRate = function () {
 	  return this.metalRate;
 	};
 
-	/**
-	 * Returns the current food rate.
-	 */
+	// Returns the current food rate.
 	User.prototype.getFoodRate = function () {
 	  return this.foodRate;
 	};

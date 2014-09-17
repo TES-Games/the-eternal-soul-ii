@@ -95,45 +95,123 @@
 			return false;
 		};
 
-		// Handles what action is taken based what input the user gives
-		Main.prototype.handleInput = function (input) {
-			if (this.checkForBuying(input)) {
-				return;
+		Main.prototype.checkForABCD = function (i) {
+			i = i.toLowerCase();
+			if (i === "a" || i === "b" || i === "c" || i === "d") {
+				return true;
 			}
 
-			// If they type anything else, handle it here ...
-			switch (input) {
-				// If they user types "x", choosing a new day
-				case "new day":
-					this.newDay();
-					break;
+			return false;
+		}
 
-				// If the user types "?"
-				case "?":
-					this.displayCommands();
-					break;
 
-				// If the user types "i"
-				case "inventory":
+
+
+
+		// Handles what action is taken based what input the user gives
+		Main.prototype.handleInput = function (input) {
+			if (this.checkForABCD(input) && this.player.getUserName() !== "Your Name") {
+				var l = this.player.getLocation(),
+					dc = this.displayContent,
+					p = this.player;
+				switch (l) {
+					case "dragonsbane": {
+						this.updateDisplay();
+						this.locations.dragonsbane();
+						switch (input) {
+							case "a":
+								p.setLocation("dragonsbane road");
+								break;
+							case "b":
+								p.setLocation("dragonsbane shop");
+								break;
+							case "c":
+								p.setLocation("dragonsbane tavern");
+								break;
+							case "d":
+								p.setLocation("dragonsbane history");
+								break;
+						}
+						break; 
+					} case "dragonsbane tavern": {
+						this.updateDisplay();
+						this.locations.dragonsbaneTavern();
+						switch (input) {
+							case "a":
+								console.log("You chose to talk to the bartender!");
+								p.setLocation("dragonsbane tavern bartender");
+								break;
+							case "b":
+								p.setLocation("dragonsbane tavern bar fight");
+								break;
+							case "c":
+								p.setLocation("dragonsbane");
+								break;
+							case "d":
+								this.displayAdvisorResponse();
+								break;
+						}
+						break;
+					} case "dragonsbane tavern bartender": {
+						this.updateDisplay();
+						this.locations.dragonsbaneTavernBartender();
+						switch (input) {
+							case "a":
+								p.setLocation("dragonsbane tavern bartender");
+								break;
+							case "b":
+								p.setLocation("dragonsbane tavern bar fight");
+								break;
+							case "c":
+								p.setLocation("dragonsbane tavern leave");
+								break;
+							case "d":
+								p.setLocation("dragonsbane tavern");
+								break;
+						}
+						break;
+					}
+				}
+
+			} else if (this.player.getUserName() === "Your Name") { 
+				this.player.setUserName(input);
+				this.displayContent("It is truly delightful to meet you, " + this.player.getUserName() + "!");
+				window.setTimeout(function() {
 					this.updateDisplay();
-					this.displayInventory();
-					break;
+					this.locations.dragonsbane(this.player);
+				}.bind(this), 3e3);
+				
+			} else {
 
-				// If the user types "clear"
-				case "clear":
-					this.updateDisplay();
-					break;
+				// If they type anything else, handle it here ...
+				switch (input) {
+					// If the user types "?"
+					case "?":
+						this.displayCommands();
+						break;
 
-				case "lvl up":
-					this.player.xp += 4500;
-					this.updateDisplay();
-					break;
+					// If the user types "i"
+					case "inventory":
+						this.updateDisplay();
+						this.displayInventory();
+						break;
 
-				// If they don't type in any of the above ...
-				default:
-					this.updateDisplay();
-					this.displayAdvisorResponse();
-					break;
+					// If the user types "clear"
+					case "clear":
+						this.updateDisplay();
+						break;
+
+					case "lvl up":
+						this.player.xp += 4500;
+						this.updateDisplay();
+						break;
+
+					// If they don't type in any of the above ...
+					default:
+						this.updateDisplay();
+						this.displayAdvisorResponse();
+						break;
+				}
 			}
 		};
 
@@ -391,21 +469,24 @@
 		Main.prototype.run = function () {
 			// Attach event to input
 			this.inputField.focus();
-			this.updateDisplay();
+			this.displayContent("What do you wish to be called?");
 		};
 
 		// Updates the content in the player data div in the header
 		Main.prototype.displayPlayerInfo = function (content) {
+			this.clearPlayerInfo();
 
 			document.getElementById("player-info").insertAdjacentHTML("beforeEnd", "<span class='player-info-span'>" + content + "</span>");
 		};
+
+		Main.prototype.clearPlayerInfo = function () {
+			document.getElementById("player-info").innerHTML = "";
+		}
 
 		// Updates the user on what's going on
 		Main.prototype.updateDisplay = function () {
 			this.clearOutputField();
 			this.displayPlayerInfo("XP 0 | Level 1");
-			this.displayContent("Welcome to Dragonsbane, what do you want to do? </br>" +
-				"A| Leave Town. B| Go to shop. C| Visit tavern. D| History of Dragonsbane.");
 		};
 
 		// Instantiates a player
@@ -415,6 +496,17 @@
 			}
 
 			this.player = player;
+
+			return this;
+		};
+
+		// Instantiates the locations
+		Main.prototype.setLocations = function (locations) {
+			if (!Locations.isLocations(locations)) {
+				throw new TypeError("location must be an instance of Locations");
+			}
+
+			this.locations = locations;
 
 			return this;
 		};
