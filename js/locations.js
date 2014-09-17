@@ -54,6 +54,22 @@
 			this.displayAvailableMoves("Enquire about lodging.", "Buy drink.", "What's new?", "Step back from bar.");
 		};
 
+		Locations.prototype.dragonsbaneTavernBartenderLodging = function () {
+			Main.prototype.displayContent("We don\'t have much, but for 5 gold, I\'ve got an extra bed you could use.");
+			this.displayAvailableMoves("I'll take it!", "No thanks.", "Step back from bar.");
+		};
+
+		Locations.prototype.dragonsbaneTavernSleeping = function () {
+			window.setTimeout(function() {
+				Main.prototype.displayContent("You take a long, restful nap.");
+				}, 2e3);
+		};
+
+		Locations.prototype.dragonsbaneTavernBartender = function () {
+			Main.prototype.displayContent("Welcome to the Greasy Spoon, what do you want to talk about?");
+			this.displayAvailableMoves("Enquire about lodging.", "Buy drink.", "What's new?", "Step back from bar.");
+		};
+
 		// Export to the global window
 		w.Locations = Locations;
 	}
