@@ -225,6 +225,38 @@
 			}
 		};
 
+		Main.prototype.updateMusic = function () {
+			var music = [document.getElementById("music-1"), document.getElementById("music-2"),
+			document.getElementById("music-3"), document.getElementById("music-4"), 
+			document.getElementById("music-5"), document.getElementById("music-6")],
+			d = "duration",
+			ct = "currentTime";
+
+
+			if (music[0][d] - music[0][ct] === 0) {
+				music[1].play();
+			} else if (music[1][d] - music[1][ct] === 0) {
+				music[2].play();
+			} else if (music[2][d] - music[2][ct] === 0) {
+				music[3].play();
+			} else if (music[3][d] - music[3][ct] === 0) {
+				music[4].play();
+			} else if (music[4][d] - music[4][ct] === 0) {
+				music[5].play();
+			} else if (music[5][d] - music[5][ct]=== 0) {
+				music[0].play();
+			}
+			
+			// counter = 0,
+			// current;
+
+			// current = music[counter % 6];
+			// if (current.duration - current.currentTime === 0) {
+			// 	counter += 1
+			// 	current.play();
+			// 	}
+		};
+
 		// Applies the expense of the item against the user's resources
 		Main.prototype.applyExpenses = function (item) {
 			var p = this.player,
@@ -478,6 +510,7 @@
 		// The main function running the game
 		Main.prototype.run = function () {
 			// Attach event to input
+			document.getElementById("music-1").play();
 			this.inputField.focus();
 			this.displayContent("What do you wish to be called?");
 		};
@@ -495,6 +528,7 @@
 
 		// Updates the user on what's going on
 		Main.prototype.updateDisplay = function () {
+			this.updateMusic();
 			this.clearOutputField();
 			this.displayContent("USER'S LOCATION: " + this.player.getLocation());
 			this.displayPlayerInfo("XP 0 | Level 1");

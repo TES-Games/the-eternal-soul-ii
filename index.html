@@ -1,48 +1,77 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+	<head>
+		<!-- Fonts -->
+		<link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 		<link href="http://fonts.googleapis.com/css?family=VT323" rel="stylesheet" type="text/css" />
-    <link href='http://fonts.googleapis.com/css?family=Eagle+Lake' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Eagle+Lake' rel='stylesheet' type='text/css'>
 
-    <!-- Favorites Icon -->
-	  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
-    <link rel="icon" href="images/favicon.png" type="image/x-icon" />
+		<!-- Favorites Icon -->
+		<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
+		<link rel="icon" href="images/favicon.png" type="image/x-icon" />
 
-    <!-- Styles -->
-	  <link rel="stylesheet" href="css/index.css"/>
+		<!-- Styles -->
+		<link rel="stylesheet" href="css/index.css"/>
 
-    <!-- Scripts -->
-    <script src="js/data.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/inventory.js"></script>
-    <script src="js/user.js"></script>
+		<!-- Scripts -->
+		<script src="js/data.js"></script>
+		<script src="js/game.js"></script>
+		<script src="js/inventory.js"></script>
+		<script src="js/user.js"></script>
 		<script src="js/locations.js"></script>
-    <script src="js/main.js"></script>
+		<script src="js/main.js"></script>
 
-	  <title>Eternal Soul II</title>
-  </head>
+		<title>Eternal Soul II</title>
+	</head>
 	<body>
 
-    <div id="header">
-    	<div id="hearts">
-    		<img src="images/hud/heart.png" id="life-bar" />
-    	</div>
-    	<div id="player-info">
+		<div id="header">
+			<audio id="music-1">
+				<source src="Music/mp3/main.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
 
-    	</div>
-    </div>
+			<audio id="music-2">
+				<source src="Music/mp3/adventure.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
 
-    <div id ="outer-box">
-  		<div id="output-box" ></div>
-    </div>
+			<audio id="music-3">
+				<source src="Music/mp3/melancholy.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
 
-    <div id="input-box-wrapper">
-      <input id="input-box" placeholder="Enter your command here . . ." />
-    </div>
+			<audio id="music-4">
+				<source src="Music/mp3/desparation.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
 
-    <script type="text/javascript" src="js/app.js"></script>
+				<audio id="music-5">
+				<source src="Music/mp3/passing_time.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
 
-  </body>
+			<audio id="music-6">
+				<source src="Music/mp3/traditional_dance.mp3" type="audio/mp3" >
+				Your browser does not support the audio element. 
+			</audio>
+			<div id="hearts">
+				<img src="images/hud/heart.png" id="life-bar" />
+			</div>
+			<div id="player-info">
+
+			</div>
+		</div>
+
+		<div id ="outer-box">
+			<div id="output-box" ></div>
+		</div>
+
+		<div id="input-box-wrapper">
+			<input id="input-box" placeholder="Enter your command here . . ." />
+		</div>
+
+		<script type="text/javascript" src="js/app.js"></script>
+
+	</body>
 </html>
