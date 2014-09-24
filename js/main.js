@@ -76,7 +76,8 @@
 				// If the user does not have a high enough level ...
 			} else {
 				// ... they are printed this sad message.
-				this.displayContent("You need to achieve level " + (this.player.level + 1) + " to buy that!");
+				this.displayContent("You need to achieve level " + (this.player.level + 1) + 
+					" to buy that!");
 			}
 		};
 
@@ -102,11 +103,7 @@
 			}
 
 			return false;
-		}
-
-
-
-
+		};
 
 		// Handles what action is taken based what input the user gives
 		Main.prototype.handleInput = function (input) {
@@ -115,64 +112,61 @@
 					dc = this.displayContent,
 					p = this.player,
 					set = 0;
+				input = input.toLowerCase();
 				switch (l) {
-					case "dragonsbane": {
+					case "db": {
 						if (!set) {
 							this.updateDisplay();
 							this.locations.dragonsbane();
-							switch (input.toLowerCase()) {
+							switch (input) {
 								case "a":
-									p.setLocation("dragonsbane road");
+									p.setLocation("db road");
 									break;
 								case "b":
-									p.setLocation("dragonsbane shop");
+									p.setLocation("db shop");
 									break;
 								case "c":
-									p.setLocation("dragonsbane tavern");
+									p.setLocation("db tavern");
 									break;
 								case "d":
-									p.setLocation("dragonsbane history");
+									p.setLocation("db history");
 									break;
 							}
 						}
 						break; 
-					}	
-					case "dragonsbane tavern bartender": {
+					} case "db tavern bartender lodging": {
 						if (!set) {
 							this.updateDisplay();
-							this.locations.dragonsbaneTavernBartender();
-							switch (input.toLowerCase()) {
+							this.locations.dragonsbaneTavernBartenderLodging();
+							switch (input) {
 								case "a":
-									p.setLocation("dragonsbane tavern bartender");
+									this.locations.dragonsbaneTavernSleeping();
 									break;
 								case "b":
-									p.setLocation("dragonsbane tavern bar fight");
+									this.locations.dragonsbaneTavernBartender();
 									break;
 								case "c":
-									p.setLocation("dragonsbane tavern leave");
-									break;
-								case "d":
-									p.setLocation("dragonsbane tavern");
+									this.locations.dragonsbaneTavernBartender();
 									break;
 							}
 						}
 						break;
-					} case "dragonsbane tavern": {
+					} case "db tavern": {
 						if (!set) {
 							this.updateDisplay();
 							this.locations.dragonsbaneTavern();
-							switch (input.toLowerCase()) {
+							switch (input) {
 								case "a":
 									console.log("You chose to talk to the bartender!");
-									p.setLocation("dragonsbane tavern bartender");
+									p.setLocation("db tavern bartender");
 									break;
 								case "b":
 									console.log("You chose to start a bar fight!");
-									p.setLocation("dragonsbane tavern bar fight");
+									p.setLocation("db tavern bar fight");
 									break;
 								case "c":
 									console.log("You chose to leave the tavern");
-									p.setLocation("dragonsbane");
+									p.setLocation("db");
 									break;
 								case "d":
 									this.displayAdvisorResponse();
@@ -180,12 +174,83 @@
 							}
 						}
 						break;
-					} 
+				} case "db shop": {
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneShop();
+							switch (input) {
+								case "a":
+									p.setLocation("db shop counter");
+									break;
+								case "b":
+									p.setLocation("db shop owner");
+									break;
+								case "c":
+									p.setLocation("db");
+									break;
+							}
+						}
+						break;
+					} case "db shop counter": {
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneShopCounter();
+							switch (input) {
+								case "a":
+									this.buy("apple");
+									break;
+								case "b":
+									this.buy("medallion");
+									break;
+								case "c":
+									this.buy("hp potion");
+									break;
+								case "d":
+									this.buy("empty bottle");
+									break;
+								case "e":
+									p.setLocation("db shop");
+									break;
+							}
+						}
+						break;
+					} case "db shop owner": {
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneShopCounter();
+							switch (input) {
+								case "a":
+									p.addQuest("dragonsbane shop bottle retrieval");
+									break;
+								case "b":
+									p.setLocation("db shop");
+									break;
+							}
+						}
+						break;
+					} case "db history": {
+						if (!set) {
+							this.updateDisplay();
+							this.locations.dragonsbaneHistory();
+							switch (input) {
+								case "a":
+									this.locations.dragonsbaneHistoryMonologue();
+									break;
+								case "b":
+									this.locations.dragonsbaneHistoryInquire();
+									break;
+								case "c":
+									p.setLocation("db");
+									break;
+							}
+						}
+						break;
+					}
 				}
-
 			} else if (this.player.getUserName() === "Your Name") { 
 				this.player.setUserName(input);
-				this.displayContent("It is truly delightful to meet you, " + this.player.getUserName() + "!");
+				this.displayContent("It is truly delightful to meet you, " + this.player.getUserName() + 
+					"!");
 				window.setTimeout(function() {
 					this.updateDisplay();
 					this.locations.dragonsbane(this.player);
