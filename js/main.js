@@ -38,7 +38,8 @@
 
 			// Clears out the array of event listeners
 	    Main.prototype.clearEvents = function () {
-	      this.inputField.removeEventListener("keydown", this.listeners[this.inputField.id + "-keydown"]);
+	      this.inputField.removeEventListener("keydown", this.listeners[this.inputField.id + 
+	      	"-keydown"]);
 	    };
 
 			// Clears the input box
@@ -113,11 +114,12 @@
 					p = this.player,
 					set = 0;
 				input = input.toLowerCase();
+				console.log("INPUT:", input);
 				switch (l) {
 					case "db": {
 						if (!set) {
-							this.updateDisplay();
 							this.locations.dragonsbane();
+							this.updateDisplay();
 							switch (input) {
 								case "a":
 									p.setLocation("db road");
@@ -136,8 +138,8 @@
 						break; 
 					} case "db tavern bartender lodging": {
 						if (!set) {
-							this.updateDisplay();
 							this.locations.dragonsbaneTavernBartenderLodging();
+							this.updateDisplay();
 							switch (input) {
 								case "a":
 									this.locations.dragonsbaneTavernSleeping();
@@ -153,8 +155,8 @@
 						break;
 					} case "db tavern": {
 						if (!set) {
-							this.updateDisplay();
 							this.locations.dragonsbaneTavern();
+							this.updateDisplay();
 							switch (input) {
 								case "a":
 									console.log("You chose to talk to the bartender!");
@@ -291,7 +293,8 @@
 		};
 
 		Main.prototype.updateMusic = function () {
-			var music = [document.getElementById("music-1"), document.getElementById("music-2"),
+			var music = [document.getElementById("music-1"), 
+			document.getElementById("music-2"),
 			document.getElementById("music-3"), document.getElementById("music-4"), 
 			document.getElementById("music-5"), document.getElementById("music-6")],
 			d = "duration",
@@ -520,7 +523,8 @@
 						"I didn't quite catch that. Take a deep breath and speak clearly.",
 						"I'm sorry but I don't follow your logic.",
 						"Please tell me again what I can do for you.",
-						"Please forgive me, " + (male ? "Sir" : "Milady") + ", but please swallow your food before speaking.",
+						"Please forgive me, " + (male ? "Sir" : "Milady") + 
+						", but please swallow your food before speaking.",
 						"Come again?",
 						"Bless me! What do they teach them in these schools?",
 						"Are you talking to me? Are you talking to ME?"
@@ -575,7 +579,7 @@
 		// The main function running the game
 		Main.prototype.run = function () {
 			// Attach event to input
-			document.getElementById("music-1").play();
+			// document.getElementById("music-1").play();
 			this.inputField.focus();
 			this.displayContent("What do you wish to be called?");
 		};
