@@ -43,6 +43,30 @@
 			return returnRealmName();
 		};
 
+		Game.prototype.displayHearts = function (hp, maxHP) {
+			var box = document.getElementById("life-bar"),
+				content = "",
+				emptyHearts = (maxHP / 2) - Math.ceil(hp / 2);
+
+			console.log("HP:", hp, "maxHP:", maxHP, "emptyHearts:", emptyHearts);
+
+			for (var i = 0; i < hp; i += 2) {
+				console.log("i", i);
+				content += "<img src=\"images/hud/heart.png\" class=\"heart\" />";
+			}
+
+			if (hp % 2 === 1) { 
+				content += "<img src=\"images/hud/half-heart.png\" class=\"heart\" />";
+			}
+
+			for (i = 0; i < emptyHearts; i += 1) {
+				content += "<img src=\"images/hud/empty-heart.png\" class=\"heart\" />";
+			}
+
+			box.innerHTML = "";
+			box.insertAdjacentHTML("beforeEnd", content);
+		};
+
 		// Increments the day by one
 		Game.prototype.incrementDay = function () {
 			nextDay();

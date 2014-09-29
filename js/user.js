@@ -9,13 +9,15 @@
 	  this.food = User.initialFood;
 	  this.gender = "male";
 	  this.gold = User.initialGold;
+	  this.hp = User.initialMaxHP;
 	  this.level = User.initialLevel; // What level the user is on
+	  this.loc = User.inititalLocation;
+	  this.maxHP = User.initialMaxHP;
 	  this.metal = User.initialMetal;
 	  this.militaryPower = User.defaultMilitaryPower;
 	  this.mines = User.defaultMines;
 	  this.username = User.defaultName;
 	  this.xp = User.initialXP;
-	  this.loc = User.inititalLocation;
 
 	  // Rates
 	  this.foodRate = User.defaultFoodRate;
@@ -42,20 +44,21 @@
 	User.defaultFoodBonus = 0;
 	User.defaultFoodRate = 15;
 	User.defaultGoldBonus = 0;
-	User.inititalLocation = "dragonsbane";
 	User.defaultGoldRate = 3;
 	User.defaultMetalRate = 0;
 	User.defaultMilitaryPower = 0;
 	User.defaultMines = 1;
 	User.defaultMiningBonus = 0;
-	User.defaultName = "Your Name";
+	User.defaultName = "Drofar";
 	User.defaultResearchBonus = 0;
 	User.defaultXPRate = 8;
 	User.initialFood = 25;
 	User.initialGold = 8;
 	User.initialLevel = 1;
+	User.initialMaxHP = 10;
 	User.initialMetal = 10;
 	User.initialXP = 0;
+	User.inititalLocation = "db";
 
 	User.isUser = function (context) {
 	  return context instanceof User;
@@ -77,6 +80,22 @@
 	  }
 
 	  this.level = newLevel;
+	};
+
+	User.prototype.getHP = function() {
+		return this.hp;
+	};
+
+	User.prototype.setHP = function(amount) {
+		this.hp = amount;
+	};
+
+	User.prototype.getMaxHP = function() {
+		return this.maxHP;
+	};
+
+	User.prototype.setMaxHP = function(amount) {
+		this.maxHP = amount;
 	};
 
 	// Applies random bonuses to gold, food, and metal

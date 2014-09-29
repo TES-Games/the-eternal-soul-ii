@@ -108,66 +108,87 @@
 
 		// Handles what action is taken based what input the user gives
 		Main.prototype.handleInput = function (input) {
-			if (this.checkForABCD(input) && this.player.getUserName() !== "Your Name") {
-				var l = this.player.getLocation(),
-					dc = this.displayContent,
-					p = this.player,
+			if (this.checkForABCD(input)) {
+				var p = this.player,
+						l = this.locations,
 					set = 0;
 				input = input.toLowerCase();
-				console.log("INPUT:", input);
-				switch (l) {
+				console.log("INPUT:", input, "user's location:" + this.player.getLocation());
+				switch (this.player.getLocation()) {
 					case "db": {
 						if (!set) {
-							this.locations.dragonsbane();
 							this.updateDisplay();
 							switch (input) {
 								case "a":
 									p.setLocation("db road");
+									l.dragonsbaneRoad();
 									break;
 								case "b":
 									p.setLocation("db shop");
+									l.dragonsbaneShop();
 									break;
 								case "c":
 									p.setLocation("db tavern");
+									l.dragonsbaneTavern();
 									break;
 								case "d":
 									p.setLocation("db history");
+									l.dragonsbaneHistory();
 									break;
 							}
 						}
 						break; 
 					} case "db tavern bartender lodging": {
 						if (!set) {
-							this.locations.dragonsbaneTavernBartenderLodging();
 							this.updateDisplay();
 							switch (input) {
 								case "a":
-									this.locations.dragonsbaneTavernSleeping();
+									l.dragonsbaneTavernSleeping();									
+									break;
+								default:
+									l.dragonsbaneTavernBartender();
+									break;
+							}
+						}
+						break;
+					} case "db tavern bartender": {
+						if (!set) {
+							this.updateDisplay();
+							switch (input) {
+								case "a":
+									l.dragonsbaneTavernBartenderLodging();
+									p.setLocation("db tavern bartender lodging");
 									break;
 								case "b":
-									this.locations.dragonsbaneTavernBartender();
+									this.displayContent("You gulp down a bold brew.");
+									setTimeout(l.dragonsbaneTavernBartender(), 2e3);
+									p.setLocation("db tavern bartender");
 									break;
 								case "c":
-									this.locations.dragonsbaneTavernBartender();
+									l.dragonsbaneTavernBartenderTalk();
+									p.setLocation("db tavern bartender");
+									break;
+								case "d":
+									l.dragonsbaneTavern();
+									p.setLocation("db tavern");
 									break;
 							}
 						}
 						break;
 					} case "db tavern": {
 						if (!set) {
-							this.locations.dragonsbaneTavern();
 							this.updateDisplay();
 							switch (input) {
 								case "a":
-									console.log("You chose to talk to the bartender!");
+									l.dragonsbaneTavernBartender();
 									p.setLocation("db tavern bartender");
 									break;
 								case "b":
-									console.log("You chose to start a bar fight!");
+									l.dragonsbaneTavernFight();
 									p.setLocation("db tavern bar fight");
 									break;
 								case "c":
-									console.log("You chose to leave the tavern");
+									l.dragonsbane();
 									p.setLocation("db");
 									break;
 								case "d":
@@ -176,18 +197,20 @@
 							}
 						}
 						break;
-				} case "db shop": {
+					} case "db shop": {
 						if (!set) {
 							this.updateDisplay();
-							this.locations.dragonsbaneShop();
 							switch (input) {
 								case "a":
+									l.dragonsbaneShopCounter();
 									p.setLocation("db shop counter");
 									break;
 								case "b":
+									l.dragonsbaneShopOwner();
 									p.setLocation("db shop owner");
 									break;
 								case "c":
+									l.dragonsbane();
 									p.setLocation("db");
 									break;
 							}
@@ -196,7 +219,6 @@
 					} case "db shop counter": {
 						if (!set) {
 							this.updateDisplay();
-							this.locations.dragonsbaneShopCounter();
 							switch (input) {
 								case "a":
 									this.buy("apple");
@@ -219,12 +241,13 @@
 					} case "db shop owner": {
 						if (!set) {
 							this.updateDisplay();
-							this.locations.dragonsbaneShopCounter();
 							switch (input) {
 								case "a":
+									this.displayContent("You accepted the quest!!");
 									p.addQuest("dragonsbane shop bottle retrieval");
 									break;
 								case "b":
+									l.dragonsbaneShop();
 									p.setLocation("db shop");
 									break;
 							}
@@ -233,15 +256,15 @@
 					} case "db history": {
 						if (!set) {
 							this.updateDisplay();
-							this.locations.dragonsbaneHistory();
 							switch (input) {
 								case "a":
-									this.locations.dragonsbaneHistoryMonologue();
+									l.dragonsbaneHistoryMonologue();
 									break;
 								case "b":
-									this.locations.dragonsbaneHistoryInquire();
+									l.dragonsbaneHistoryInquire();
 									break;
 								case "c":
+									l.dragonsbane();
 									p.setLocation("db");
 									break;
 							}
@@ -249,15 +272,6 @@
 						break;
 					}
 				}
-			} else if (this.player.getUserName() === "Your Name") { 
-				this.player.setUserName(input);
-				this.displayContent("It is truly delightful to meet you, " + this.player.getUserName() + 
-					"!");
-				window.setTimeout(function() {
-					this.updateDisplay();
-					this.locations.dragonsbane(this.player);
-				}.bind(this), 2e3);
-				
 			} else {
 
 				// If they type anything else, handle it here ...
@@ -290,6 +304,12 @@
 						break;
 				}
 			}
+		};
+
+		Main.prototype.townDisplayContent = function(content) {
+			var box = document.getElementById("visuals-box");
+			box.innerHTML = "";
+			box.insertAdjacentHTML("beforeEnd", content);
 		};
 
 		Main.prototype.updateMusic = function () {
@@ -580,8 +600,9 @@
 		Main.prototype.run = function () {
 			// Attach event to input
 			// document.getElementById("music-1").play();
+			this.updateDisplay();
 			this.inputField.focus();
-			this.displayContent("What do you wish to be called?");
+			this.locations.dragonsbane();
 		};
 
 		// Updates the content in the player data div in the header
@@ -598,9 +619,8 @@
 		// Updates the user on what's going on
 		Main.prototype.updateDisplay = function () {
 			this.updateMusic();
-			this.clearOutputField();
-			this.displayContent("USER'S LOCATION: " + this.player.getLocation());
 			this.displayPlayerInfo("XP 0 | Level 1");
+			this.game.displayHearts(this.player.getHP(), this.player.getMaxHP());
 		};
 
 		// Instantiates a player
@@ -661,6 +681,8 @@
 		// Event Handlers
 		Main.prototype.onInputFieldKeyDown = function (keyEvent) {
 			if (keyEvent.keyCode === Main.ENTER_KEY && this.getInputFieldValue() !== "") {
+				this.clearOutputField();
+				this.updateDisplay();
 				this.handleInput(this.getInputFieldValue());
 				this.clearInputField();
 			}
