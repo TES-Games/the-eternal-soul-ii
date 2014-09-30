@@ -353,8 +353,7 @@
 		// Processes the user buying something
 		Main.prototype.buy = function (item) {
 			item = (typeof(item) === "string") ? this.data.getItemFromHash(item) : item;
-				var p = this.player,
-				c = item.cost;
+				var p = this.player;
 
 			// If the user does not have a high enough level ...
 			if (item.minimumLevel > p.level) {
