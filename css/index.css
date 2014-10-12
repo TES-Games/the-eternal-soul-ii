@@ -18,7 +18,7 @@ body {
 }
 
 #visuals-box {
-	height: 400px;
+	height: 500px;
 	width: 80%;
 	margin: auto;
 	border-radius: 5px;
@@ -31,6 +31,16 @@ body {
 	font-size: 40px;
 	text-align: center;
 	text-shadow: 4px 4px 4px black;
+}
+
+#character-text-box {
+	font-size: 30px;
+	margin: auto;
+	margin-top: 30%;
+	height: 100px;
+	width: 90%;
+	border-radius: 5px;
+	background-color: rgba(0,0,0,.5);
 }
 
 #life-bar {
@@ -90,10 +100,9 @@ body {
 
 }	
 
-
 #outer-box {
 	width: 80%;
-	height: 100px;
+	height: 35px;
 	margin: auto;
 	position: relative;
 	text-align: center;

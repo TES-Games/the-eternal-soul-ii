@@ -6,6 +6,7 @@
 		function Locations () { // jshint ignore: line
 			this.dc = Main.prototype.displayContent;
 			this.td = Main.prototype.townDisplayContent;
+			this.cd = Main.prototype.characterDisplayContent;
 		}
 
 		Locations.prototype = Object.create(null);
@@ -47,13 +48,13 @@
 		};
 
 		Locations.prototype.dragonsbaneTavernBartenderTalk = function () {
-			this.td("There was a rugged traveler in here the other day telling tales about a chest" +
+			this.cd("There was a rugged traveler in here the other day telling tales about a chest" +
 				" full of treasure on the way to Willowton. Crazy, eh?");
 			window.setTimeout(this.dragonsbaneTavernBartender(), 3000);
 		};
 
 		Locations.prototype.dragonsbaneTavernBartenderLodging = function () {
-			this.td("We don\'t have much, but for 5 gold, I\'ve got an extra bed you could use.");
+			this.cd("We don\'t have much, but for 5 gold, I\'ve got an extra bed you could use.");
 			this.disMoves("I'll take it!", "No thanks.", "Step back from bar.");
 		};
 
@@ -77,12 +78,12 @@
 		};
 
 		Locations.prototype.dragonsbaneShopCounter = function () {
-			this.td("Interested in something, eh? Let me know if you like anything you see!");
+			this.cd("Interested in something, eh? Let me know if you like anything you see!");
 			this.disMoves("Apple", "Medallion", "HP Potion", "Empty Bottle", "Step back from counter");
 		};
 
 		Locations.prototype.dragonsbaneShopOwner = function () {
-			this.td("I just ran out of empty bottles! If you could grab me some at Willowton" + 
+			this.cd("I just ran out of empty bottles! If you could grab me some at Willowton" + 
 				"I would give you 20 gold for it!");
 			this.disMoves("Accept Quest.", "Go on your way.");
 		};
@@ -99,7 +100,7 @@
 		};
 
 		Locations.prototype.dragonsbaneHistoryInquire = function () {
-			this.td("Well I heard the shop owner, Cindy Loo-Hoo has run out of empty bottles!");
+			this.cd("Well I heard the shop owner, Cindy Loo-Hoo has run out of empty bottles!");
 		};
 
 		// Export to the global window

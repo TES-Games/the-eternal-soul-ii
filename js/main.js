@@ -510,6 +510,11 @@
 			box.scrollTop += 100; // Makes sure that content box is always scrolled down to the bottom
 		};
 
+		// Prints content to the character box
+		Main.prototype.characterDisplayContent = function (content) {
+			Main.prototype.townDisplayContent("<div id='character-text-box'>\"" + content + "\"</div>");
+		};
+
 		// Returns the inventory, or prints that the inventory is empty
 		Main.prototype.displayInventory = function () {
 			if (this.inventory.getAsString()) {
@@ -557,7 +562,7 @@
 
 		// Instantiates a player
 		Main.prototype.setPlayer = function (player) {
-			if (!Player.isUser(player)) {
+			if (!User.isUser(player)) {
 				throw new TypeError("player must be an instance of User");
 			}
 
